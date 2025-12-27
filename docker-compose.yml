@@ -1,0 +1,31 @@
+services:
+  backend-flask:
+    environment:
+      FRONTEND_URL: "${FRONTEND_URL}"
+      BACKEND_URL: "${BACKEND_URL}"
+    build: ./backend-flask
+    ports:
+      - "4567:4567"
+    volumes:
+      - ./backend-flask:/backend-flask
+  frontend-react-js:
+    build: ./frontend-react-js
+    ports:
+      - "3000:3000"
+    environment:
+      REACT_APP_BACKEND_URL: "${REACT_APP_BACKEND_URL}"
+      WDS_SOCKET_PORT: "0"
+    volumes:
+      - ./frontend-react-js:/frontend-react-js
+      - frontend_node_modules:/frontend-react-js/node_modules
+
+
+volumes:
+  frontend_node_modules:
+
+# the name flag is a hack to change the default prepend folder
+# name when outputting the image names
+networks: 
+  internal-network:
+    driver: bridge
+    name: cruddur
