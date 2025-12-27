@@ -1,4 +1,5 @@
-FROM python:3.10-slim-buster
+FROM mirror.gcr.io/library/python:3.10-slim-buster
+
 
 WORKDIR /backend-flask
 
