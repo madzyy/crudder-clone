@@ -3,18 +3,25 @@ services:
     environment:
       FRONTEND_URL: "${FRONTEND_URL}"
       BACKEND_URL: "${BACKEND_URL}"
+      FLASK_ENV: development
+      FLASK_DEBUG: 1
     build: ./backend-flask
     ports:
       - "4567:4567"
     volumes:
       - ./backend-flask:/backend-flask
   frontend-react-js:
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+      WATCHPACK_POLLING: "true"
+      WDS_SOCKET_PORT: "0"
+      NODE_ENV: development
+      REACT_APP_BACKEND_URL: "${REACT_APP_BACKEND_URL}"
     build: ./frontend-react-js
+
     ports:
       - "3000:3000"
-    environment:
-      REACT_APP_BACKEND_URL: "${REACT_APP_BACKEND_URL}"
-      WDS_SOCKET_PORT: "0"
+   
     volumes:
       - ./frontend-react-js:/frontend-react-js
       - frontend_node_modules:/frontend-react-js/node_modules
