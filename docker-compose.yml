@@ -3,6 +3,9 @@ services:
     environment:
       FRONTEND_URL: "${FRONTEND_URL}"
       BACKEND_URL: "${BACKEND_URL}"
+      OTEL_SERVICE_NAME: "backend-flask"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
+      OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
       FLASK_ENV: development
       FLASK_DEBUG: 1
     build: ./backend-flask
